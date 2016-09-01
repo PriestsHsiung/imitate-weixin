@@ -1,11 +1,10 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 16
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.github.hsiung.weixin"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
@@ -22,6 +21,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile files('libs/android-support-v4.jar')
-    compile project(':badgeview')
 }

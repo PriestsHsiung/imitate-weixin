@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.Xfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Looper;
@@ -95,7 +94,6 @@ public class ChangeColorIconWithText extends View
 		mTextPaint.setTextSize(mTextSize);
 		mTextPaint.setColor(0Xff555555);
 		mTextPaint.getTextBounds(mText, 0, mText.length(), mTextBound);
-
 	}
 
 	@Override

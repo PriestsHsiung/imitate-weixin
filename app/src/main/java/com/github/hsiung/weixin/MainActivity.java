@@ -12,11 +12,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.Window;
+
+import com.jauker.widget.BadgeView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener,
 		OnPageChangeListener
@@ -28,6 +31,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	{ "First Fragment !", "Second Fragment !", "Third Fragment !",
 			"Fourth Fragment !" };
 	private FragmentPagerAdapter mAdapter;
+
+	private BadgeView[] badgeViews = new BadgeView[4];
 
 	private List<ChangeColorIconWithText> mTabIndicators = new ArrayList<ChangeColorIconWithText>();
 
@@ -43,7 +48,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		initDatas();
 		mViewPager.setAdapter(mAdapter);
 		initEvent();
-
 	}
 
 	/**
@@ -104,6 +108,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 
 		one.setIconAlpha(1.0f);
 
+		badgeViews[0] = new BadgeView(MainActivity.this);
+		badgeViews[0].setTargetView(one);
+		badgeViews[0].setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
+		badgeViews[0].setBadgeMargin(0, 5, 25, 0);
+        badgeViews[0].setBadgeCount(4);
+
+		badgeViews[1] = new BadgeView(MainActivity.this);
+		badgeViews[1].setTargetView(two);
+		badgeViews[1].setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
+		badgeViews[1].setBadgeMargin(0, 5, 25, 0);
+
+		badgeViews[2] = new BadgeView(MainActivity.this);
+		badgeViews[2].setTargetView(three);
+		badgeViews[2].setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
+		badgeViews[2].setBadgeMargin(0, 5, 25, 0);
+
+		badgeViews[3] = new BadgeView(MainActivity.this);
+		badgeViews[3].setTargetView(four);
+		badgeViews[3].setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
+		badgeViews[3].setBadgeMargin(0, 5, 25, 0);
 	}
 
 	@Override
@@ -170,24 +194,29 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	private void clickTab(View v)
 	{
 		resetOtherTabs();
+		resetTabsBadgeView();
 
 		switch (v.getId())
 		{
 		case R.id.id_indicator_one:
 			mTabIndicators.get(0).setIconAlpha(1.0f);
 			mViewPager.setCurrentItem(0, false);
+			badgeViews[0].setBadgeCount(4);
 			break;
 		case R.id.id_indicator_two:
 			mTabIndicators.get(1).setIconAlpha(1.0f);
 			mViewPager.setCurrentItem(1, false);
+			badgeViews[1].setBadgeCount(4);
 			break;
 		case R.id.id_indicator_three:
 			mTabIndicators.get(2).setIconAlpha(1.0f);
 			mViewPager.setCurrentItem(2, false);
+			badgeViews[2].setBadgeCount(4);
 			break;
 		case R.id.id_indicator_four:
 			mTabIndicators.get(3).setIconAlpha(1.0f);
 			mViewPager.setCurrentItem(3, false);
+			badgeViews[3].setBadgeCount(4);
 			break;
 		}
 	}
@@ -200,6 +229,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		for (int i = 0; i < mTabIndicators.size(); i++)
 		{
 			mTabIndicators.get(i).setIconAlpha(0);
+		}
+	}
+
+	private void resetTabsBadgeView() {
+		for (BadgeView badgeView : badgeViews) {
+			badgeView.setBadgeCount(0);
 		}
 	}
 
@@ -222,6 +257,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	@Override
 	public void onPageSelected(int position)
 	{
+		resetTabsBadgeView();
+		badgeViews[position].setBadgeCount(4);
 		// TODO Auto-generated method stub
 
 	}
